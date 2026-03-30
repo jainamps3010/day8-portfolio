@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel</title>
+    <link rel="stylesheet" 
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <nav id="navbar">
+        <div class="logo">🔐 Admin Panel</div>
+        <ul>
+            <li><a href="/">← Back to Portfolio</a></li>
+        </ul>
+    </nav>
+
+    <div class="admin-section">
+        <h2>📬 All Messages 
+            <span class="badge">{{ total }}</span>
+        </h2>
+
+        {% if messages %}
+            {% for msg in messages %}
+            <div class="message-card">
+                <div class="message-header">
+                    <div>
+                        <h3>{{ msg.name }}</h3>
+                        <p class="email">📧 {{ msg.email }}</p>
+                    </div>
+                    <div class="message-meta">
+                        <span class="date">{{ msg.date_sent }}</span>
+                        <a href="/delete-message/{{ msg.id }}"
+                           class="btn-delete"
+                           onclick="return confirm('Delete this message?')">
+                           🗑️ Delete
+                        </a>
+                    </div>
+                </div>
+                <p class="subject"><b>Subject:</b> {{ msg.subject }}</p>
+                <p class="msg-body">{{ msg.message }}</p>
+            </div>
+            {% endfor %}
+
+        {% else %}
+            <div class="empty-state">
+                <p>📭 No messages yet!</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <footer>
+        <p>Admin Panel | Amps Portfolio</p>
+    </footer>
+
+</body>
+</html>
