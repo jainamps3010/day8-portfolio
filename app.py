@@ -5,7 +5,8 @@ from datetime import datetime
 app = Flask(__name__)
 
 # Database setup
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///portfolio.db"
+import os
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL", "sqlite:///portfolio.db")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
@@ -114,4 +115,4 @@ def delete_message(id):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
